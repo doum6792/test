@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+
+        /* common CSS */
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            text-align: center;
+            overflow-x: hidden;
+        }
+        .roulette_wrap{
+            width: 100%;
+        }
+ /*        div{
+            width: 100%;
+        } */
+        img{
+            display: block;
+            margin: 0 auto;
+            max-width: 100%; /* 반응형 */
+            height: auto;
+        }
+        
+        /* main */
+        .section1, .section2, .section3 ,.section4, .section5{max-width: 100%;}
+        .section1{background: url(images/roulette_bg01.jpg) no-repeat center 0;}
+        .section2{background: url(images/roulette_bg02.jpg) no-repeat center 0; position: relative;}
+        .section3{background: url(images/roulette_bg03.jpg) no-repeat center 0;}
+        .section4{background: url(images/roulette_bg04.jpg) no-repeat center 0;}
+        .section5{background: url(images/roulette_bg05.jpg) no-repeat center 0;}
+        .roulette_rotate, .arrow, .pann, .start, .rotate{position: absolute; max-width: 100%;}
+        .roulette_rotate{
+            top: 41%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            max-width: 50%;
+        }
+
+        /* about roulette */
+        .arrow{
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 4;
+            max-width: 50%;
+        }
+        .pann{
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 50%;
+        }
+        .start{
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            max-width: 50%;
+        }
+        .rotate{
+            animation: rotate 5s;
+            transform-origin: center center;
+        }
+/*         .roulette > img{
+            max-width: 100%;
+        } */
+/*         .circle{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 50%;
+            left: 83.5%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            background: url(images/pc_event_roulette.png) no-repeat;
+        } */
+
+        @keyframes rotate {
+            0%{transform: translate(-50%,-50%) rotate(-340deg);}
+            100%{transform: translate(-50%, -50%) rotate(340deg);}
+        }
+        .popup{
+            position: fixed;
+            max-width: 100%;
+/*             width: 675px;
+            height: 660px; */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            display: none;
+        }
+        .close{
+            position: absolute;
+            z-index: 20;
+            top: 8%;
+            right: 8%;
+            max-width: 13%;
+/*             border: 10px solid #000; */
+        }
+        .exit{
+/*             max-width: 10%;
+            position: fixed;
+            top: 10%;
+            right: 0; */
+
+        }
+        
+        .dim_layer{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 5;
+            background: rgba(0, 0, 0, 0.459);
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="roulette_wrap">
+        <div class="section1">
+            <img src="images/roulette_img01.jpg" alt="background01">
+        </div>
+        <div class="section2">
+            <img src="images/roulette_img02.jpg" alt="background02">
+            <div class="roulette">
+                <img src="images/arrow.png" alt="arrow" class="arrow">
+                <img src="images/pc_event_roulette-1.png" alt="" class="roulette_rotate">
+                <img src="images/pann.png" alt="pann" class="pann">
+                <img src="images/start.png" alt="start" class="start">
+            </div>
+        </div>
+        <div class="section3">
+            <img src="images/roulette_img03.jpg" alt="background03">
+        </div>
+        <div class="section4">
+            <img src="images/roulette_img04.jpg" alt="background04">
+        </div>
+        <div class="section5">
+            <img src="images/roulette_img05.jpg" alt="background05">
+        </div>
+
+        <!-- popup -->
+        <div class="popup">
+            <img src="images/popup.png" alt="popup">
+            <div class="close">
+                <img src="images/close.png" alt="close" class="exit">
+            </div>
+        </div>
+        <div class="dim_layer"></div>
+    </div> <!-- roulette_wrap -->
+
+
+    <script>
+        $(function(){
+            //rotate & popup
+            var dim_layer;
+            var popup
+            $(".start").click(function(e){
+                $(this).toggleClass("on");
+                if ($(this).hasClass("on")) {
+                $(".roulette_rotate").addClass("rotate")
+                dim_layer = setTimeout(function(){
+                $(".dim_layer").css({"display":"block"})
+                },5000)
+                popup = setTimeout(function(){
+                $(".popup").show()
+                },5000)
+                } else{
+                    $(".roulette_rotate").removeClass("rotate")
+                    clearTimeout(dim_layer)
+                    clearTimeout(popup)       
+                }
+        })
+            //popup close
+            $(".close").click(function(){
+                $(".popup").hide()
+                $(".dim_layer").css({"display":"none"})
+            })
+    })
+    </script>
+</body>
+</html>
